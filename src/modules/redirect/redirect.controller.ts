@@ -25,7 +25,7 @@ export class RedirectController {
   public async redirect(@Res() res: Response, @Param() params): Promise<void> {
     const { code } = params;
 
-    const { longUrl } = await this.service.getUrl(code);
+    const longUrl = await this.service.getLongUrl(code);
     
     res.redirect(longUrl);
   }

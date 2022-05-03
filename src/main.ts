@@ -6,7 +6,6 @@ import { AppModule } from './app.module';
 import { LogUnhandledErrorFilter } from './filters/log.filter';
 import { checkEnvironmentVars } from './helpers/env.helper';
 import helmet from 'helmet';
-import csurf from 'csurf';
 
 dotenv.config();
 

@@ -21,7 +21,6 @@ export class ShortenUrlController {
   ) { }
 
   @Post()
-  @Header('Content-Type', 'application/json')
   public async shortenUrl(@Body() dto: any): Promise<Url> {
     const { longUrl } = dto;
 
