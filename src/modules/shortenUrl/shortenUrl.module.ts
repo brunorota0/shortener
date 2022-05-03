@@ -1,7 +1,8 @@
 import { Module } from '@nestjs/common';
-import { JwtModule, JwtService } from '@nestjs/jwt';
+import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UrlRepository } from 'src/repositories/url.repository';
+import { SharedService } from '../shared/shared.service';
 import { ShortenUrlController } from './shortenUrl.controller';
 import { ShortenUrlService } from './shortenUrl.service';
 
@@ -17,6 +18,7 @@ import { ShortenUrlService } from './shortenUrl.service';
   ],
   providers: [
     ShortenUrlService,
+    SharedService
   ]
 })
 export class ShortenUrlModule {}

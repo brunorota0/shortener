@@ -23,11 +23,11 @@ dotenv.config();
     ]),
     ThrottlerModule.forRoot(throttlerConfig),
     ShortenUrlModule,
-    RedirectModule
+    RedirectModule,
   ],
   controllers: [],
   providers: [
-    throttlerProvider
+    throttlerProvider,
   ],
 })
 

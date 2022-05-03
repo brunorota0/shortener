@@ -9,4 +9,5 @@ export interface Response<T> {
 export interface ShortenUrlDto {
   longUrl: string
   expiresIn?: string
+  customCode?: string
 }

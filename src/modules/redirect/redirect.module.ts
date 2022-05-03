@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UrlRepository } from 'src/repositories/url.repository';
+import { SharedService } from '../shared/shared.service';
 import { RedirectController } from './redirect.controller';
 import { RedirectService } from './redirect.service';
 
@@ -16,7 +17,8 @@ import { RedirectService } from './redirect.service';
     RedirectController,
   ],
   providers: [
-    RedirectService
+    RedirectService,
+    SharedService
   ]
 })
 

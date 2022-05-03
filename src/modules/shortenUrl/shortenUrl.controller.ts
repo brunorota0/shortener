@@ -2,8 +2,6 @@ import {
   Body,
   ClassSerializerInterceptor,
   Controller,
-  Header,
-  Logger,
   Post,
   UseInterceptors
 } from '@nestjs/common';
@@ -15,8 +13,6 @@ import { ShortenUrlService } from './shortenUrl.service';
 @Controller('/shorten')
 @UseInterceptors(ResponseInterceptor, ClassSerializerInterceptor)
 export class ShortenUrlController {
-  private readonly logger = new Logger('ShortenUrl - Controller');
-
   constructor(
     private readonly service: ShortenUrlService,
   ) { }
@@ -25,7 +21,7 @@ export class ShortenUrlController {
   public async shortenUrl(@Body() dto: ShortenUrlDto): Promise<Url> {
     const { longUrl } = dto;
 
-    this.service.validateUrl(longUrl);
+    this.service.isValidUri(longUrl);
 
     return this.service.createUrl(dto);
   }

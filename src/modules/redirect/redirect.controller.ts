@@ -6,11 +6,12 @@ import {
   Logger,
   Param,
   Res,
-  UseGuards,
+  UnauthorizedException,
   UseInterceptors
 } from '@nestjs/common';
 import { Response } from 'express';
 import { ResponseInterceptor } from 'src/helpers/response.interceptor';
+import { SharedService } from '../shared/shared.service';
 import { RedirectService } from './redirect.service';
 
 @Controller('')
@@ -20,19 +21,21 @@ export class RedirectController {
 
   constructor(
     private readonly service: RedirectService,
+    private readonly sharedService: SharedService
   ) { }
 
   @Get('/:code')
   public async redirect(@Res() res: Response, @Param() params): Promise<any> {
     const { code } = params;
-    
+
     if (!code.trim()) throw new BadRequestException('Url code was not provided.');
 
-    const { longUrl, token } = await this.service.getUrl(code);
+    const url = await this.service.getUrl(code);
 
-    this.service.verifyUrlToken(token);
+    const isValidToken = await this.sharedService.isValidToken(url);
+    if (!isValidToken) throw new UnauthorizedException('Token expired');
 
-    res.redirect(longUrl);
+    res.redirect(url.longUrl);
     //return longUrl;
   }
 }

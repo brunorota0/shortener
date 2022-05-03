@@ -3,7 +3,6 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { testDbConfig } from 'src/config/database';
 import { INestApplication } from '@nestjs/common';
 import supertest from 'supertest';
-import { AppModule } from 'src/app.module';
 import { RedirectController } from '../redirect.controller';
 import { ShortenUrlController } from 'src/modules/shortenUrl/shortenUrl.controller';
 import { RedirectModule } from '../redirect.module';

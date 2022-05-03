@@ -1,18 +1,13 @@
-import { CACHE_MANAGER, Inject, Injectable, Logger, NotFoundException, UnauthorizedException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
+import { CACHE_MANAGER, Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { Cache } from 'cache-manager';
-import { url } from 'inspector';
 import { Url } from 'src/models/url.entity';
 import { UrlRepository } from 'src/repositories/url.repository';
 
 @Injectable()
 export class RedirectService {
-  private readonly logger = new Logger('Redirect - Service');
-
   constructor(
     private readonly urlRepository: UrlRepository,
     @Inject(CACHE_MANAGER) private cacheManager: Cache,
-    private readonly jwtService: JwtService
   ) { }
 
   public async getUrl(code: string): Promise<Url> {
@@ -28,13 +23,5 @@ export class RedirectService {
     await this.cacheManager.set(code, url, { ttl: 10 });
 
     return url;
-  }
-
-  public verifyUrlToken(token: string) {
-    try {
-      this.jwtService.verify(token);
-    } catch (error) {
-      throw new UnauthorizedException('Token expired');
-    }
   }
 }
