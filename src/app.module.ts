@@ -1,4 +1,4 @@
-import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+import { CacheModule, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
 import { ScheduleModule } from '@nestjs/schedule';
@@ -9,11 +9,13 @@ import { UnhandledErrorDataRepository } from './repositories/error.repository';
 import { RedirectModule } from './modules/redirect/redirect.module';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import { throttlerConfig } from './config/throttler';
 
 dotenv.config();
 
 @Module({
   imports: [
+    CacheModule.register(),
     ScheduleModule.forRoot(),
     TypeOrmModule.forRoot(dbConfig),
     TypeOrmModule.forFeature([
@@ -28,10 +30,8 @@ dotenv.config();
   ],
   controllers: [],
   providers: [
-    {
-      provide: APP_GUARD,
-      useClass: ThrottlerGuard,
-    },
+    throttlerConfig,
+    
   ],
 })
 

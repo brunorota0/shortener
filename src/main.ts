@@ -19,7 +19,6 @@ async function bootstrap() {
 
   app.use(compression());
   app.use(helmet());
-  app.use(csurf());
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new LogUnhandledErrorFilter());
 
