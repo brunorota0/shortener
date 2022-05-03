@@ -1,10 +1,12 @@
 import {
+  BadRequestException,
   ClassSerializerInterceptor,
   Controller,
   Get,
   Logger,
   Param,
   Res,
+  UseGuards,
   UseInterceptors
 } from '@nestjs/common';
 import { Response } from 'express';
@@ -23,8 +25,12 @@ export class RedirectController {
   @Get('/:code')
   public async redirect(@Res() res: Response, @Param() params): Promise<any> {
     const { code } = params;
+    
+    if (!code.trim()) throw new BadRequestException('Url code was not provided.');
 
-    const longUrl = await this.service.getLongUrl(code);
+    const { longUrl, token } = await this.service.getUrl(code);
+
+    this.service.verifyUrlToken(token);
 
     res.redirect(longUrl);
     //return longUrl;

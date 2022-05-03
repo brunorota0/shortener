@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { ResponseInterceptor } from 'src/helpers/response.interceptor';
 import { Url } from 'src/models/url.entity';
+import { ShortenUrlDto } from 'src/types/types';
 import { ShortenUrlService } from './shortenUrl.service';
 
 @Controller('/shorten')
@@ -21,11 +22,11 @@ export class ShortenUrlController {
   ) { }
 
   @Post()
-  public async shortenUrl(@Body() dto: any): Promise<Url> {
+  public async shortenUrl(@Body() dto: ShortenUrlDto): Promise<Url> {
     const { longUrl } = dto;
 
     this.service.validateUrl(longUrl);
 
-    return this.service.createUrl(longUrl);
+    return this.service.createUrl(dto);
   }
 }

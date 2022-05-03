@@ -9,7 +9,6 @@ import {
 } from 'typeorm';
 
 @Entity()
-@Index(['domain'])
 export class Url extends BaseEntity {
 
   @PrimaryGeneratedColumn('uuid')
@@ -22,11 +21,13 @@ export class Url extends BaseEntity {
   shortUrl: string
 
   @Column()
-  domain: string
-
-  @Column()
   code: string
 
+  @Column()
+  @Exclude()
+  token: string
+
+  @Exclude()
   @CreateDateColumn()
   createdAt: Date
 }

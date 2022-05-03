@@ -46,6 +46,12 @@ const envSchemaArray: EnvSchema[] = [
     required: false,
     example: 'postgresql://postgres:postgres@localhost:5432/shortener-test'
   },
+  {
+    name: 'DEFAULT_TOKEN_EXPIRATION',
+    description: 'Default token expiration time',
+    required: true,
+    example: '30s'
+  },
 ];
 
 const formatDisplay = (missingEnvVars: any[], invalidValues: any[]) => {
