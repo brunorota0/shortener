@@ -1,6 +1,5 @@
 import { BadRequestException, CACHE_MANAGER, Inject, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { Cache } from 'cache-manager';
-import { Url } from 'src/models/url.entity';
 import { UrlRepository } from 'src/repositories/url.repository';
 
 @Injectable()
@@ -24,7 +23,7 @@ export class RedirectService {
     if (!longUrl) throw new NotFoundException('Url not found.');
 
     // Set cache
-    await this.cacheManager.set(code, longUrl);
+    await this.cacheManager.set(code, longUrl, { ttl: 5 });
 
     return longUrl;
   }

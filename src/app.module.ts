@@ -9,12 +9,13 @@ import { UnhandledErrorDataRepository } from './repositories/error.repository';
 import { RedirectModule } from './modules/redirect/redirect.module';
 import { ThrottlerModule } from '@nestjs/throttler';
 import { throttlerConfig, throttlerProvider } from './config/throttler';
+import { cacheConfig } from './config/cache';
 
 dotenv.config();
 
 @Module({
   imports: [
-    CacheModule.register(),
+    CacheModule.register(cacheConfig),
     ScheduleModule.forRoot(),
     TypeOrmModule.forRoot(dbConfig),
     TypeOrmModule.forFeature([
@@ -26,7 +27,7 @@ dotenv.config();
   ],
   controllers: [],
   providers: [
-    throttlerProvider,
+    throttlerProvider
   ],
 })
 

@@ -5,6 +5,7 @@ import {
   Get,
   Logger,
   Param,
+  Redirect,
   Res,
   UseInterceptors
 } from '@nestjs/common';
@@ -22,11 +23,12 @@ export class RedirectController {
   ) { }
 
   @Get('/:code')
-  public async redirect(@Res() res: Response, @Param() params): Promise<void> {
+  public async redirect(@Res() res: Response, @Param() params): Promise<any> {
     const { code } = params;
 
     const longUrl = await this.service.getLongUrl(code);
-    
+
     res.redirect(longUrl);
+    //return longUrl;
   }
 }
