@@ -1,11 +1,9 @@
 import {
-  CacheInterceptor,
   ClassSerializerInterceptor,
   Controller,
   Get,
   Logger,
   Param,
-  Redirect,
   Res,
   UseInterceptors
 } from '@nestjs/common';
