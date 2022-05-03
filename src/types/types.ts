@@ -8,6 +8,6 @@ export interface Response<T> {
 
 export interface ShortenUrlDto {
   longUrl: string
-  expiresIn?: string
+  expiresIn?: string // 1s, 1h, 1d
   customCode?: string
 }

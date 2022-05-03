@@ -19,7 +19,7 @@ export class ShortenUrlService {
     private readonly sharedService: SharedService
   ) { }
 
-  public isValidUri(longUrl: string): void {
+  public isWellFormedUri(longUrl: string): void {
     if (!validUrl.isUri(longUrl)) throw new BadRequestException('Invalid URL provided');
   }
 
@@ -48,7 +48,6 @@ export class ShortenUrlService {
 
     if (customCode) {
       await this.validateUrlExistence(customCode);
-
       code = customCode;
     } else {
       code = shortid.generate();
@@ -64,8 +63,6 @@ export class ShortenUrlService {
     const isValidToken = this.sharedService.isValidToken(urlFound);
     if (isValidToken) {
       throw new HttpException('Custom code already exists', 400);
-    } else {
-      if (urlFound.id) await this.urlRepository.remove(urlFound);
     }
   }
 

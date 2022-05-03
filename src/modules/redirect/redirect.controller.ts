@@ -17,8 +17,6 @@ import { RedirectService } from './redirect.service';
 @Controller('')
 @UseInterceptors(ResponseInterceptor, ClassSerializerInterceptor)
 export class RedirectController {
-  private readonly logger = new Logger('Redirect - Controller');
-
   constructor(
     private readonly service: RedirectService,
     private readonly sharedService: SharedService

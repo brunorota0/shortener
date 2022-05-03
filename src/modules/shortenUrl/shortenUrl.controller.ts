@@ -21,7 +21,7 @@ export class ShortenUrlController {
   public async shortenUrl(@Body() dto: ShortenUrlDto): Promise<Url> {
     const { longUrl } = dto;
 
-    this.service.isValidUri(longUrl);
+    this.service.isWellFormedUri(longUrl);
 
     return this.service.createUrl(dto);
   }
