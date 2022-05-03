@@ -28,3 +28,8 @@ DEFAULT_TOKEN_EXPIRATION=30s
 
 ## Running the app
 - To run the app enter `npm run start:dev` for dev (watch mode) or just `npm start` in terminal.
+
+
+## How to possibly scale the App
+- We can separate this app in two microservices (Shorten-ms and Redirect-ms). Being that the Redirect-ms will have more request than the shorten, i would setup that microservice to have more resources. For example, i would add more memory (or EC2 Memory Optimized instance in AWS) being that this will use memory caching.
+- Another option could be setup the Redirect-ms to have a better DB response time. In this approach i would remove the memory caching and create a EC2 Storage Optimized instance in AWS.
