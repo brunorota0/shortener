@@ -6,6 +6,7 @@ import { AppModule } from './app.module';
 import { LogUnhandledErrorFilter } from './filters/log.filter';
 import { checkEnvironmentVars } from './helpers/env.helper';
 import helmet from 'helmet';
+import { helmetConfig } from './config/helmet';
 
 dotenv.config();
 
@@ -17,7 +18,7 @@ async function bootstrap() {
   });
 
   app.use(compression());
-  app.use(helmet());
+  app.use(helmet(helmetConfig));
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new LogUnhandledErrorFilter());
 
