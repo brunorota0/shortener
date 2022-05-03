@@ -6,6 +6,7 @@ import { AppModule } from './app.module';
 import { LogUnhandledErrorFilter } from './filters/log.filter';
 import { checkEnvironmentVars } from './helpers/env.helper';
 import helmet from 'helmet';
+import csurf from 'csurf';
 
 dotenv.config();
 
@@ -18,6 +19,7 @@ async function bootstrap() {
 
   app.use(compression());
   app.use(helmet());
+  app.use(csurf());
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalFilters(new LogUnhandledErrorFilter());
 
