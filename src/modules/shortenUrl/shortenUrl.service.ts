@@ -6,7 +6,9 @@ import shortid from 'shortid';
 import { JwtService } from '@nestjs/jwt';
 import { ShortenUrlDto } from 'src/types/types';
 import { SharedService } from '../shared/shared.service';
+import * as dotenv from 'dotenv';
 
+dotenv.config();
 const { BASE_URL, DEFAULT_TOKEN_EXPIRATION } = process.env;
 
 @Injectable()
